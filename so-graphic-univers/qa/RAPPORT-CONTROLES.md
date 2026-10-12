@@ -5,17 +5,17 @@
 - ✅ 900 images (attendu : 900)
 - ✅ durée vidéo 30.00 s à 30/1 i/s (conteneur : 30.000 s)
 - ✅ 1080 × 1350, h264 High, yuv420p
-- ℹ️ espace colorimétrique : bt709 / bt709 / bt709 / tv, débit 9320 kb/s
+- ℹ️ espace colorimétrique : bt709 / bt709 / bt709 / tv, débit 6078 kb/s
 
 ## 2. Rouge #fc0017 après compression
 
 - ✅ roue S1 (0,0 s) : rgb(251, 0, 22) — écart max 1.0 / 255 (image 0)
 - ✅ pupille S2 (5,8 s) : rgb(251, 0, 22) — écart max 1.0 / 255 (image 174)
-- ❌ tache S4 (13,7 s) : rgb(233, 0, 21) — écart max 19.3 / 255 (image 411)
+- ✅ tache S4 (13,87 s) : rgb(251, 0, 22) — écart max 1.0 / 255 (image 416)
 - ✅ roue S6 (18,5 s) : rgb(251, 0, 22) — écart max 1.0 / 255 (image 555)
-- ✅ « S » du logo (29,8 s) : rgb(251, 0, 23) — écart max 1.4 / 255 (image 894)
+- ✅ « S » du logo (29,8 s) : rgb(251, 0, 22) — écart max 1.0 / 255 (image 894)
 - ✅ grande roue du logo (29,8 s) : rgb(251, 0, 22) — écart max 1.0 / 255 (image 894)
-- ℹ️ bords (fin du logo) : 11212 px s'écartent de plus de 24/255 de l'image source sans perte (écart moyen 0.87) — effet du sous-échantillonnage 4:2:0 limité à ~1 px autour des formes rouges
+- ℹ️ bords (fin du logo) : 7215 px s'écartent de plus de 24/255 de l'image source sans perte (écart moyen 0.54) — effet du sous-échantillonnage 4:2:0 limité à ~1 px autour des formes rouges
 
 ## 3. Superposition fin du logo (2,8 s de la séquence L) / SVG officiel
 
@@ -29,7 +29,7 @@
 ## 4. Clin d'œil : image « œil fermé »
 
 - ✅ instantané sans perte : 0 px rouges au-dessus de l'axe, 0 px de pupille, 17225 px de demi-lune basse
-- ✅ vidéo décodée : 0 px rouges au-dessus de l'axe, 0 px de pupille, 16966 px de demi-lune basse
+- ✅ vidéo décodée : 0 px rouges au-dessus de l'axe, 0 px de pupille, 17063 px de demi-lune basse
 
 ## 5. Conclusion et logo jamais à l'écran ensemble
 
@@ -53,4 +53,4 @@
 - `captures/capture-0m29,90s.png` — 0:29,90 (image 897)
 - ℹ️ `qa/planche-400px.png` : les 11 captures réduites à 400 px de large (lisibilité mobile)
 
-**Bilan : au moins un contrôle échoue — voir ❌.**
+**Bilan : tous les contrôles automatiques passent.**
