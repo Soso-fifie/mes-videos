@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>So Graphic — Je change d’univers</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter Tight";
+        src: url("assets/fonts/InterTight-Var.woff2") format("woff2");
+        font-weight: 100 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("assets/fonts/InstrumentSerif-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: "Unbounded";
+        src: url("assets/fonts/Unbounded-Var.woff2") format("woff2");
+        font-weight: 200 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Archivo Black";
+        src: url("assets/fonts/ArchivoBlack.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("assets/fonts/JetBrainsMono-Var.woff2") format("woff2");
+        font-weight: 100 800;
+        font-style: normal;
+      }
+
+      :root {
+        --ink: #111010;
+        --ink-soft: rgba(17, 16, 16, 0.55);
+        --paper: #f3eee6;
+        --paper-soft: rgba(243, 238, 230, 0.55);
+        --red: #fc0017;
+        --red-light: #ff9aa4;
+        --ia-bg: #07061a;
+        --ia-1: #6e4bff;
+        --ia-2: #22d3ee;
+        --ia-3: #ff4fa0;
+        --bp-bg: #f4f4f1;
+        --bp-line: #dde0e5;
+        --bp-ink: #15171c;
+        --sans: "Inter Tight", system-ui, sans-serif;
+        --serif: "Instrument Serif", Georgia, serif;
+        --wide: "Unbounded", system-ui, sans-serif;
+        --poster: "Archivo Black", system-ui, sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ink);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--ink);
+        font-family: var(--sans);
+      }
+      #stage {
+        position: absolute;
+        inset: 0;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        visibility: hidden;
+        opacity: 0;
+      }
+      #s1 {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      /* ---------- shared editorial furniture ---------- */
+      .meta {
+        position: absolute;
+        top: 150px;
+        font-family: var(--mono);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .meta.tl {
+        left: 90px;
+      }
+      .meta.tr {
+        right: 90px;
+      }
+      .mdot {
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--red);
+      }
+      .marks {
+        position: absolute;
+        inset: 56px;
+      }
+      .marks i {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        border-color: currentColor;
+        border-style: solid;
+        border-width: 0;
+      }
+      .marks i:nth-child(1) {
+        top: 0;
+        left: 0;
+        border-top-width: 2px;
+        border-left-width: 2px;
+      }
+      .marks i:nth-child(2) {
+        top: 0;
+        right: 0;
+        border-top-width: 2px;
+        border-right-width: 2px;
+      }
+      .marks i:nth-child(3) {
+        bottom: 0;
+        left: 0;
+        border-bottom-width: 2px;
+        border-left-width: 2px;
+      }
+      .marks i:nth-child(4) {
+        bottom: 0;
+        right: 0;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+      }
+      .rdot {
+        display: inline-block;
+        width: 0.2em;
+        height: 0.2em;
+        border-radius: 50%;
+        background: var(--red);
+        margin-left: 0.05em;
+      }
+
+      /* ---------- S1 · la question ---------- */
+      #s1 {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .bigq {
+        position: absolute;
+        right: -260px;
+        top: 120px;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 1700px;
+        line-height: 1;
+        color: rgba(243, 238, 230, 0.045);
+      }
+      #s1 .meta {
+        color: var(--paper-soft);
+      }
+      .s1-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 90px;
+      }
+      #s1-text {
+        font-size: 122px;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        line-height: 1.08;
+        transform-origin: 0% 50%;
+      }
+      .line {
+        display: flex;
+        align-items: baseline;
+        white-space: nowrap;
+      }
+      .w {
+        display: inline-block;
+        clip-path: inset(-60% -40% 0% -40%);
+        padding-bottom: 0.14em;
+        margin-bottom: -0.14em;
+        margin-right: 0.2em;
+      }
+      .w:last-child {
+        margin-right: 0;
+      }
+      .wi,
+      .wj {
+        display: inline-block;
+      }
+      .bw {
+        position: relative;
+        display: inline-block;
+        margin-left: 0.1em;
+      }
+      .bw .w {
+        margin-right: 0;
+      }
+      .brief {
+        clip-path: none;
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 1.32em;
+        letter-spacing: -0.01em;
+        color: var(--red);
+      }
+      .ellipse {
+        position: absolute;
+        left: -7%;
+        top: -12%;
+        width: 118%;
+        height: 122%;
+        overflow: visible;
+      }
+      .ellipse path {
+        fill: none;
+        stroke: var(--paper);
+        stroke-width: 1.9;
+        stroke-linecap: round;
+      }
+      .fdot {
+        display: inline-block;
+        width: 0.2em;
+        height: 0.2em;
+        border-radius: 50%;
+        background: var(--red);
+        margin-left: -0.15em;
+      }
+
+      /* ---------- S2 · moi non plus ---------- */
+      #s2,
+      #s3 {
+        background: var(--paper);
+        color: var(--ink);
+      }
+      #s2 .meta,
+      #s3 .meta {
+        color: var(--ink-soft);
+      }
+      #s2 .marks,
+      #s3 .marks,
+      #logo .marks {
+        color: rgba(17, 16, 16, 0.35);
+      }
+      .s2-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #s2-line {
+        display: flex;
+        align-items: baseline;
+        gap: 0.22em;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 176px;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+      }
+      .pw {
+        display: inline-block;
+      }
+      #s2-dot {
+        display: inline-block;
+        width: 0.2em;
+        height: 0.2em;
+        border-radius: 50%;
+        background: var(--red);
+        margin-left: -0.16em;
+      }
+
+      /* ---------- S3 · métier → univers ---------- */
+      .s3-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 90px;
+      }
+      #s3-block {
+        font-size: 124px;
+        font-weight: 700;
+        letter-spacing: -0.045em;
+        line-height: 1.12;
+        transform-origin: 0% 50%;
+      }
+      .cw {
+        display: inline-block;
+        margin-right: 0.22em;
+        position: relative;
+      }
+      .cw:last-child {
+        margin-right: 0;
+      }
+      .col {
+        overflow: hidden;
+        white-space: nowrap;
+        vertical-align: bottom;
+      }
+      .strike {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 0.085em;
+        background: var(--red);
+        transform-origin: 0% 50%;
+      }
+      .swap {
+        position: relative;
+        display: inline-block;
+      }
+      #s3-b {
+        position: absolute;
+        left: 0;
+        bottom: -0.36em;
+        white-space: nowrap;
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 1.5em;
+        letter-spacing: -0.01em;
+        color: var(--red);
+        transform-origin: 0% 80%;
+      }
+      #s3-b .rdot {
+        width: 0.16em;
+        height: 0.16em;
+      }
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: var(--red);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* ---------- U1 · IA design ---------- */
+      #u1 {
+        background: var(--ia-bg);
+        color: #fff;
+      }
+      #u1-mesh {
+        position: absolute;
+        inset: -25%;
+        filter: blur(70px);
+        opacity: 0.95;
+        background:
+          radial-gradient(circle at var(--x1, 25%) var(--y1, 30%), var(--ia-1) 0 16%, transparent 34%),
+          radial-gradient(circle at var(--x2, 75%) var(--y2, 55%), var(--ia-3) 0 13%, transparent 30%),
+          radial-gradient(circle at var(--x3, 40%) var(--y3, 78%), var(--ia-2) 0 14%, transparent 32%);
+      }
+      .ia-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(7, 6, 26, 0.75) 100%);
+      }
+      .ia-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.5px, transparent 1.6px);
+        background-size: 36px 36px;
+      }
+      .u-chip {
+        position: absolute;
+        top: 330px;
+        left: 90px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 28px;
+        border-radius: 999px;
+        font-family: var(--mono);
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      #u1-chip {
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .star {
+        width: 30px;
+        height: 30px;
+        fill: currentColor;
+      }
+      .u1-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 90px;
+      }
+      #u1-text {
+        position: relative;
+      }
+      .u1-a {
+        font-family: var(--wide);
+        font-weight: 500;
+        font-size: 74px;
+        letter-spacing: -0.02em;
+        color: rgba(255, 255, 255, 0.88);
+        margin-bottom: 18px;
+      }
+      .u1-b-wrap {
+        position: relative;
+      }
+      .u1-b {
+        font-family: var(--wide);
+        font-weight: 700;
+        font-size: 108px;
+        letter-spacing: -0.04em;
+        line-height: 1.15;
+        white-space: nowrap;
+      }
+      #u1-b {
+        background: linear-gradient(95deg, #b8a6ff 0%, #6fe9ff 45%, #ff8cc6 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .u1-ghost {
+        position: absolute;
+        left: 0;
+        top: 0;
+        mix-blend-mode: screen;
+      }
+      #u1-gr {
+        color: #ff2a55;
+      }
+      #u1-gc {
+        color: #1fe4ff;
+      }
+      .sparkle {
+        position: absolute;
+        color: #fff;
+      }
+      .sparkle svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+      }
+      #u1-prompt {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        bottom: 470px;
+        padding: 28px 34px;
+        border-radius: 26px;
+        border: 2px solid rgba(255, 255, 255, 0.22);
+        background: rgba(10, 8, 30, 0.55);
+        font-family: var(--mono);
+        font-size: 32px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.92);
+        display: flex;
+        align-items: center;
+        white-space: pre;
+      }
+      #u1-prompt .pr {
+        color: #9f8bff;
+        margin-right: 18px;
+      }
+      .cursor {
+        display: inline-block;
+        width: 0.55em;
+        height: 1.1em;
+        background: currentColor;
+        margin-left: 4px;
+      }
+      #u1-bar {
+        position: absolute;
+        left: 34px;
+        right: 34px;
+        bottom: 12px;
+        height: 4px;
+        border-radius: 4px;
+        background: linear-gradient(90deg, var(--ia-1), var(--ia-2), var(--ia-3));
+        transform-origin: 0% 50%;
+      }
+
+      /* ---------- U2 · communication visuelle ---------- */
+      #u2 {
+        background: var(--paper);
+        color: var(--ink);
+      }
+      #u2-circle {
+        position: absolute;
+        width: 780px;
+        height: 780px;
+        right: -230px;
+        top: 250px;
+        border-radius: 50%;
+        background: var(--red);
+      }
+      .u2-rule {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: rgba(17, 16, 16, 0.12);
+      }
+      #u2-num {
+        position: absolute;
+        top: 300px;
+        left: 90px;
+        font-family: var(--poster);
+        font-size: 64px;
+        color: var(--red);
+        overflow: hidden;
+        line-height: 1;
+      }
+      #u2-num span {
+        display: block;
+      }
+      .u2-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 90px;
+      }
+      .u2-l {
+        font-family: var(--poster);
+        font-size: 178px;
+        line-height: 0.88;
+        letter-spacing: -0.035em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        mix-blend-mode: multiply;
+      }
+      #u2-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 430px;
+        height: 104px;
+        background: var(--ink);
+        transform-origin: 0% 50%;
+      }
+      #u2-bar-t {
+        position: absolute;
+        left: 90px;
+        bottom: 430px;
+        height: 104px;
+        display: flex;
+        align-items: center;
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 38px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--paper);
+      }
+
+      /* ---------- U3 · direction artistique ---------- */
+      #u3 {
+        background: var(--red);
+        color: var(--paper);
+      }
+      .u3-frame i {
+        position: absolute;
+        background: rgba(243, 238, 230, 0.75);
+      }
+      .u3-frame .h {
+        left: 56px;
+        right: 56px;
+        height: 2px;
+        transform-origin: 0% 50%;
+      }
+      .u3-frame .v {
+        top: 56px;
+        bottom: 56px;
+        width: 2px;
+        transform-origin: 50% 0%;
+      }
+      #u3-in {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 50%;
+      }
+      .u3-top {
+        position: absolute;
+        top: 300px;
+        left: 110px;
+        right: 110px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding-bottom: 22px;
+        border-bottom: 2px solid rgba(243, 238, 230, 0.6);
+      }
+      #u3-k {
+        font-family: var(--sans);
+        font-weight: 600;
+        font-size: 26px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+      #u3-title {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 58px;
+      }
+      .u3-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 110px;
+      }
+      #u3-a {
+        font-family: var(--serif);
+        font-size: 128px;
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+      #u3-b {
+        display: flex;
+        overflow: hidden;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 214px;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        padding: 0 0.05em 0.06em 0;
+        white-space: nowrap;
+      }
+      #u3-b span {
+        display: inline-block;
+      }
+      #u3-sign {
+        position: absolute;
+        left: 110px;
+        right: 110px;
+        bottom: 420px;
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--sans);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(243, 238, 230, 0.85);
+      }
+
+      /* ---------- U4 · suivi de projet ---------- */
+      #u4 {
+        background-color: var(--bp-bg);
+        background-image:
+          linear-gradient(var(--bp-line) 2px, transparent 2px),
+          linear-gradient(90deg, var(--bp-line) 2px, transparent 2px);
+        background-size: 60px 60px;
+        background-position: -2px -2px;
+        color: var(--bp-ink);
+      }
+      #u4-chip {
+        border: 2px solid var(--bp-ink);
+        background: var(--bp-bg);
+      }
+      .cbx {
+        width: 32px;
+        height: 32px;
+        border: 3px solid var(--bp-ink);
+        border-radius: 6px;
+        display: grid;
+        place-items: center;
+      }
+      .cbx svg,
+      .g-check svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      .cbx path,
+      .g-check path {
+        fill: none;
+        stroke: var(--red);
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .u4-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 90px;
+      }
+      #u4-a,
+      #u4-b {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 124px;
+        line-height: 1.12;
+        letter-spacing: -0.05em;
+        white-space: nowrap;
+        display: flex;
+        align-items: baseline;
+      }
+      #u4-b .ch,
+      #u4-a .ch {
+        display: inline-block;
+      }
+      #u4-dot {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--red);
+        margin-left: 4px;
+      }
+      #u4-cur {
+        display: inline-block;
+        width: 0.5em;
+        height: 0.9em;
+        background: var(--red);
+        margin-left: 10px;
+        align-self: center;
+      }
+      .gantt {
+        margin-top: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 34px;
+      }
+      .g-row {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .g-lab {
+        width: 230px;
+        font-family: var(--mono);
+        font-size: 32px;
+        font-weight: 500;
+        color: rgba(21, 23, 28, 0.75);
+      }
+      .g-track {
+        position: relative;
+        flex: 1;
+        height: 46px;
+        border-left: 2px solid rgba(21, 23, 28, 0.25);
+      }
+      .g-bar {
+        position: absolute;
+        top: 0;
+        height: 46px;
+        border-radius: 8px;
+        background: var(--bp-ink);
+        transform-origin: 0% 50%;
+      }
+      .g-bar.red {
+        background: var(--red);
+      }
+      .g-check {
+        width: 42px;
+        height: 42px;
+      }
+
+      /* ---------- iris ---------- */
+      #iris {
+        position: absolute;
+        inset: 0;
+        background: var(--red);
+        visibility: hidden;
+        clip-path: circle(0px at 50% 50%);
+      }
+
+      /* ---------- logo ---------- */
+      #logo {
+        background: var(--paper);
+        color: var(--ink);
+      }
+      #lg {
+        position: absolute;
+        left: 160px;
+        top: 360px;
+        width: 760px;
+        height: 729px;
+        overflow: visible;
+      }
+      .lr {
+        fill: var(--red);
+      }
+      #lg-bite {
+        fill: var(--paper);
+      }
+      #lg-ring {
+        fill: none;
+        stroke: var(--red);
+        stroke-width: 1.2;
+      }
+      .tagline {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 1120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      #tg1 {
+        display: flex;
+        gap: 0.26em;
+        font-family: var(--sans);
+        font-weight: 500;
+        font-size: 66px;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+      #tg1 span {
+        display: inline-block;
+      }
+      .tg2 {
+        position: relative;
+        margin-top: -6px;
+      }
+      #tg-rev {
+        display: block;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 186px;
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+        padding: 0 0.06em;
+        background: linear-gradient(100deg, var(--red) 0%, var(--red) 42%, var(--red-light) 50%, var(--red) 58%, var(--red) 100%);
+        background-size: 300% 100%;
+        background-position: 100% 0%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      #tg-scan {
+        position: absolute;
+        top: 8%;
+        left: 0;
+        width: 4px;
+        height: 84%;
+        background: var(--red);
+        opacity: 0;
+      }
+      #url {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1530px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        font-family: var(--mono);
+        font-size: 28px;
+        font-weight: 500;
+        color: var(--ink-soft);
+        text-transform: lowercase;
+      }
+      #url-rule {
+        width: 120px;
+        height: 2px;
+        background: var(--red);
+        transform-origin: 50% 50%;
+      }
+
+      /* ---------- grain ---------- */
+      #grain {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      #grain-tex {
+        position: absolute;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        opacity: 0.085;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-size: 320px 320px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="15"
+      data-fps="30"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="stage" class="clip" data-start="0" data-duration="15" data-track-index="0">
+        <!-- S1 · 0.0 → 4.0 · la question -->
+        <section class="scene" id="s1">
+          <div class="bigq" id="s1-q" data-layout-ignore aria-hidden="true">?</div>
+          <div class="meta tl" id="s1-m1"><i class="mdot"></i>So Graphic</div>
+          <div class="meta tr" id="s1-m2">01</div>
+          <div class="s1-wrap">
+            <div id="s1-text">
+              <div class="line">
+                <span class="w fu"><span class="wi">Vous</span></span>
+                <span class="w fu"><span class="wi">ne</span></span>
+                <span class="w fu"><span class="wi">savez</span></span>
+              </div>
+              <div class="line">
+                <span class="w fu"><span class="wi">pas</span></span>
+                <span class="w fu"><span class="wi">encore</span></span>
+              </div>
+              <div class="line">
+                <span class="w fu"><span class="wi">sur</span></span>
+                <span class="w fu"><span class="wi">quel</span></span>
+                <span class="bw fu" id="s1-bw">
+                  <span class="w brief" id="s1-brief"><span class="wi">brief</span></span>
+                  <svg class="ellipse" viewBox="0 0 200 100" preserveAspectRatio="none">
+                    <path
+                      id="s1-ell"
+                      pathLength="1"
+                      d="M 26 22 C 70 2, 178 6, 192 40 C 204 74, 120 98, 54 92 C 12 88, -2 62, 10 40 C 20 22, 58 10, 96 8"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="line">
+                <span class="w fu"><span class="wi">vous</span></span>
+                <span class="w fu"><span class="wi">pourriez</span></span>
+              </div>
+              <div class="line">
+                <span class="w fu"><span class="wi">avoir</span></span>
+                <span class="w fu"><span class="wi">besoin</span></span>
+              </div>
+              <div class="line">
+                <span class="w fu"><span class="wi">de</span></span>
+                <span class="w fu"><span class="wi">moi</span></span>
+                <span class="fdot fu" id="s1-dot"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- S2 · 4.0 → 5.0 · moi non plus -->
+        <section class="scene" id="s2">
+          <div class="marks" id="s2-marks"><i></i><i></i><i></i><i></i></div>
+          <div class="meta tl"><i class="mdot"></i>So Graphic</div>
+          <div class="meta tr">02</div>
+          <div class="s2-wrap">
+            <div id="s2-line">
+              <span class="pw">Moi</span>
+              <span class="pw">non</span>
+              <span class="pw">plus</span>
+              <span id="s2-dot"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- S3 · 5.0 → 7.5 · je ne change pas de métier → je change d’univers -->
+        <section class="scene" id="s3">
+          <div class="marks"><i></i><i></i><i></i><i></i></div>
+          <div class="meta tl"><i class="mdot"></i>So Graphic</div>
+          <div class="meta tr">03</div>
+          <div class="s3-wrap">
+            <div id="s3-block">
+              <div class="line">
+                <span class="cw"><span class="wj s3w">Je</span></span>
+                <span class="cw col" id="s3-ne"
+                  ><span class="wj s3w">ne</span><i class="strike" id="s3-strike-ne"></i
+                ></span>
+                <span class="cw" id="s3-change"><span class="wj s3w">change</span></span>
+              </div>
+              <div class="line">
+                <span class="cw col" id="s3-pas"
+                  ><span class="wj s3w">pas</span><i class="strike" id="s3-strike-pas"></i
+                ></span>
+                <span class="swap cw" id="s3-swap">
+                  <span id="s3-a"
+                    ><span class="wj s3w">de</span> <span class="wj s3w">métier</span
+                    ><i class="rdot" id="s3-dot"></i
+                  ></span>
+                  <span id="s3-b">d’univers<i class="rdot"></i></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div id="flash"></div>
+        </section>
+
+        <!-- U1 · IA design -->
+        <section class="scene" id="u1">
+          <div id="u1-mesh"></div>
+          <div class="ia-dots"></div>
+          <div class="ia-vignette"></div>
+          <div class="u-chip" id="u1-chip">
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" /></svg>
+            IA Design
+          </div>
+          <div class="u1-wrap">
+            <div id="u1-text">
+              <div class="u1-a">Je change</div>
+              <div class="u1-b-wrap">
+                <div class="u1-b u1-ghost" id="u1-gr">d’univers.</div>
+                <div class="u1-b u1-ghost" id="u1-gc">d’univers.</div>
+                <div class="u1-b" id="u1-b">d’univers.</div>
+              </div>
+            </div>
+          </div>
+          <div class="sparkle" id="u1-sp1" style="left: 820px; top: 700px; width: 70px; height: 70px">
+            <svg viewBox="0 0 24 24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" /></svg>
+          </div>
+          <div class="sparkle" id="u1-sp2" style="left: 900px; top: 1130px; width: 40px; height: 40px">
+            <svg viewBox="0 0 24 24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" /></svg>
+          </div>
+          <div class="sparkle" id="u1-sp3" style="left: 120px; top: 1180px; width: 52px; height: 52px">
+            <svg viewBox="0 0 24 24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" /></svg>
+          </div>
+          <div id="u1-prompt">
+            <span class="pr">›</span><span id="u1-typed"></span><span class="cursor" id="u1-cur"></span>
+            <i id="u1-bar"></i>
+          </div>
+        </section>
+
+        <!-- U2 · communication visuelle -->
+        <section class="scene" id="u2">
+          <div class="u2-rule" style="left: 360px"></div>
+          <div class="u2-rule" style="left: 720px"></div>
+          <div id="u2-circle"></div>
+          <div id="u2-num"><span id="u2-num-in">02</span></div>
+          <div class="u2-wrap">
+            <div class="u2-l">Je</div>
+            <div class="u2-l">change</div>
+            <div class="u2-l">d’uni</div>
+            <div class="u2-l">vers.</div>
+          </div>
+          <div id="u2-bar"></div>
+          <div id="u2-bar-t">Communication visuelle</div>
+        </section>
+
+        <!-- U3 · direction artistique -->
+        <section class="scene" id="u3">
+          <div class="u3-frame">
+            <i class="h" style="top: 56px"></i>
+            <i class="h" style="bottom: 56px"></i>
+            <i class="v" style="left: 56px"></i>
+            <i class="v" style="right: 56px"></i>
+          </div>
+          <div id="u3-in">
+            <div class="u3-top">
+              <span id="u3-k">N° 03</span>
+              <span id="u3-title">Direction artistique</span>
+            </div>
+            <div class="u3-wrap">
+              <div id="u3-a">Je change</div>
+              <div id="u3-b" data-layout-allow-overflow></div>
+            </div>
+            <div id="u3-sign"><span>So Graphic</span><span>Édition 2026</span></div>
+          </div>
+        </section>
+
+        <!-- U4 · suivi de projet -->
+        <section class="scene" id="u4">
+          <div class="u-chip" id="u4-chip">
+            <span class="cbx"><svg viewBox="0 0 24 24"><path id="u4-tick" pathLength="1" d="M4 12.5 L10 18 L20 5" /></svg></span>
+            Suivi de projet
+          </div>
+          <div class="u4-wrap">
+            <div id="u4-a"></div>
+            <div id="u4-b"><i id="u4-dot"></i><span id="u4-cur"></span></div>
+            <div class="gantt">
+              <div class="g-row">
+                <span class="g-lab">Brief</span>
+                <div class="g-track"><i class="g-bar" style="left: 0%; width: 26%"></i></div>
+                <span class="g-check"><svg viewBox="0 0 24 24"><path pathLength="1" d="M4 12.5 L10 18 L20 5" /></svg></span>
+              </div>
+              <div class="g-row">
+                <span class="g-lab">Concept</span>
+                <div class="g-track"><i class="g-bar" style="left: 18%; width: 34%"></i></div>
+                <span class="g-check"><svg viewBox="0 0 24 24"><path pathLength="1" d="M4 12.5 L10 18 L20 5" /></svg></span>
+              </div>
+              <div class="g-row">
+                <span class="g-lab">Création</span>
+                <div class="g-track"><i class="g-bar red" style="left: 40%; width: 42%"></i></div>
+                <span class="g-check"><svg viewBox="0 0 24 24"><path pathLength="1" d="M4 12.5 L10 18 L20 5" /></svg></span>
+              </div>
+              <div class="g-row">
+                <span class="g-lab">Livraison</span>
+                <div class="g-track"><i class="g-bar" style="left: 76%; width: 24%"></i></div>
+                <span class="g-check"><svg viewBox="0 0 24 24"><path pathLength="1" d="M4 12.5 L10 18 L20 5" /></svg></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- iris : le point rouge envahit l'écran -->
+        <div id="iris" data-layout-allow-occlusion></div>
+
+        <!-- LOGO · 11.0 → 15.0 -->
+        <section class="scene" id="logo">
+          <div class="marks" id="lg-marks"><i></i><i></i><i></i><i></i></div>
+          <svg id="lg" viewBox="52 56 196 188" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="clipS"><rect x="54" y="86" width="72" height="98" /></clipPath>
+            </defs>
+            <circle id="lg-ring" cx="168.43" cy="135.38" r="16" />
+            <g id="lg-gear-g"><path
+              id="lg-gear"
+              class="lr"
+              d="M205.86,130.51l-7.65-1.66c-.76-3.38-2.08-6.55-3.86-9.41l4.27-6.66c.8-.79.74-2.16-.13-3.04l-4.19-4.19c-.88-.88-2.25-.94-3.05-.13l-6.59,4.23c-2.84-1.8-6-3.15-9.37-3.94l-1.68-7.71c0-1.14-1.01-2.07-2.26-2.07h-5.92c-1.25,0-2.25.92-2.25,2.07l-1.68,7.64c-3.38.76-6.54,2.09-9.4,3.86l-6.65-4.27c-.8-.8-2.17-.73-3.05.14l-4.19,4.19c-.88.88-.94,2.24-.13,3.05l4.23,6.59c-1.8,2.84-3.14,6-3.93,9.37l-7.72,1.69c-1.13,0-2.06,1.01-2.06,2.26v5.92c0,1.25.93,2.25,2.06,2.25l7.65,1.67c.76,3.38,2.08,6.55,3.86,9.41l-4.27,6.65c-.8.8-.74,2.17.14,3.05l4.19,4.19c.88.88,2.25.94,3.05.14l6.6-4.23c2.79,1.77,5.88,3.09,9.18,3.88l1.73,7.95c0,1.14,1.01,2.06,2.25,2.06h5.92c1.24,0,2.26-.92,2.26-2.06l1.71-7.8c3.42-.76,6.61-2.09,9.5-3.88l6.66,4.27c.8.8,2.16.74,3.05-.14l4.19-4.18c.88-.88.94-2.25.13-3.05l-4.23-6.6c1.8-2.84,3.14-6,3.93-9.37l7.72-1.69c1.14,0,2.06-1,2.06-2.25v-5.92c0-1.25-.92-2.26-2.06-2.26ZM168.26,159.67c-13.29,0-24.06-10.78-24.06-24.06s10.77-24.07,24.06-24.07,24.07,10.77,24.07,24.07-10.77,24.06-24.07,24.06Z"
+            /></g>
+            <g id="lg-sgear-g"><path
+              id="lg-sgear"
+              class="lr"
+              d="M238.68,93.62l-4.05-2.73c.34-2.15.3-4.3-.07-6.38l4.02-2.89c.66-.28.94-1.08.63-1.81l-1.47-3.4c-.31-.71-1.09-1.07-1.75-.78l-4.82.93c-1.24-1.71-2.77-3.22-4.55-4.46l.81-4.88c.26-.66-.11-1.44-.83-1.72l-3.45-1.37c-.72-.28-1.53.01-1.78.68l-2.75,4.06c-2.15-.34-4.29-.3-6.37.07l-2.88-4.03c-.28-.66-1.09-.93-1.81-.62l-3.41,1.47c-.71.31-1.07,1.09-.78,1.74l.94,4.82c-1.71,1.24-3.22,2.76-4.46,4.54l-4.88-.81c-.66-.26-1.43.11-1.72.84l-1.37,3.45c-.29.72.02,1.53.68,1.79l4.07,2.74c-.34,2.15-.3,4.3.07,6.38l-4.03,2.88c-.66.28-.93,1.09-.63,1.81l1.47,3.41c.31.71,1.09,1.07,1.74.78l4.82-.94c1.22,1.68,2.71,3.17,4.45,4.4l-.83,5.02c-.26.66.11,1.43.84,1.72l3.44,1.37c.72.28,1.53-.02,1.79-.68l2.8-4.14c2.17.35,4.34.31,6.44-.06l2.88,4.03c.28.65,1.09.93,1.81.62l3.41-1.47c.72-.31,1.06-1.09.78-1.75l-.93-4.82c1.71-1.24,3.22-2.77,4.47-4.55l4.89.8c.65.27,1.43-.1,1.71-.83l1.38-3.45c.29-.73-.02-1.53-.69-1.8ZM228.15,92.87c-2.75,6.92-10.6,10.31-17.53,7.54-6.93-2.75-10.31-10.6-7.55-17.54,2.76-6.93,10.61-10.31,17.54-7.55,6.93,2.75,10.31,10.61,7.55,17.54Z"
+            /></g>
+            <g clip-path="url(#clipS)">
+              <path
+                id="lg-S"
+                class="lr"
+                d="M59.87,170.69v-13.74h1.15c6.47,3.7,16.74,6.58,25.86,6.58s16.28-2.89,16.28-10.28c0-9.35-9.35-9.58-21.13-13.62-11.43-3.81-21.24-9.24-21.24-22.4,0-16.74,13.74-23.55,31.63-23.55,7.04,0,16.16,1.5,22.28,4.62v13.74h-1.15c-5.54-3.12-15.59-5.66-22.74-5.54-8.08,0-14.09,2.65-14.09,10.04,0,8.08,8.43,9.81,16.05,12.01,14.43,3.69,26.21,8.78,26.21,23.67,0,17.43-13.05,24.59-31.98,24.59-8.78,0-19.86-2.42-27.13-6.12Z"
+              />
+            </g>
+            <g id="lg-word">
+              <path class="lr lg-l" d="M60.7,213.44c0-8.21,6.11-14.12,14.56-14.12,3.95,0,6.43.63,8.56,1.7v5.64h-.43c-1.78-1.03-4.1-1.74-7.02-1.74-5.64,0-9.15,3.67-9.15,8.52s3.24,8.64,8.68,8.64c1.11,0,2.05-.16,2.88-.51v-8.88h6.2v12.47c-2.56,1.7-5.64,2.53-9.63,2.53-8.72,0-14.64-5.92-14.64-14.24Z" />
+              <path class="lr lg-l" d="M89.49,207.09h4.54l.59,2.29h.32c1.15-1.62,3.16-2.84,5.68-2.88h.67v5.6h-.71c-2.72,0-5.36,1.46-5.36,5.44v9.55h-5.72v-20Z" />
+              <path class="lr lg-l" d="M102.94,217.35c0-5.96,4.02-10.85,10.42-10.85,3,0,5.49,1.19,6.82,3.12h.36l.83-2.53h3.79v20h-3.83l-.87-2.56h-.32c-1.38,1.97-3.83,3.16-6.82,3.16-6.35,0-10.38-4.69-10.38-10.34ZM119.47,217.11c0-3.04-2.45-5.41-5.49-5.41s-5.37,2.17-5.37,5.41,2.41,5.37,5.41,5.37,5.45-2.45,5.45-5.37Z" />
+              <path class="lr lg-l" d="M130.15,207.09h4.26l.59,2.33h.32c.99-1.5,3.35-2.92,6.9-2.92,6.2,0,10.18,4.66,10.18,10.57s-4.38,10.61-10.26,10.61c-2.68,0-4.93-1.22-5.88-2.49h-.32v9.98h-5.8v-28.09ZM146.68,217.11c0-3.24-2.37-5.41-5.37-5.41s-5.48,2.37-5.48,5.41,2.37,5.37,5.48,5.37,5.37-2.21,5.37-5.37Z" />
+              <path class="lr lg-l" d="M156.3,199.32h5.68v9.67h.32c1.14-1.26,2.72-2.49,5.92-2.49,5.45,0,8.29,3.35,8.29,8.37v12.23h-5.92v-10.97c0-2.84-1.54-4.34-4.06-4.34-2.92,0-4.3,2.29-4.3,4.93v10.38h-5.92v-27.78Z" />
+              <path class="lr lg-l" d="M180.91,200.66c0-1.97,1.62-3.39,3.35-3.39,1.85,0,3.43,1.5,3.43,3.39s-1.54,3.35-3.43,3.35-3.35-1.5-3.35-3.35ZM181.3,207.09h5.92v20h-5.92v-20Z" />
+              <path class="lr lg-l" d="M191.16,217.11c0-6.2,4.38-10.61,11.05-10.61,2.49,0,4.62.55,6.12,1.42v5.17h-.43c-1.26-.75-3.12-1.26-5.17-1.26-3.27,0-5.52,2.09-5.52,5.29s2.17,5.33,5.56,5.33c2.05,0,3.87-.55,5.13-1.3h.43v5.17c-1.5.83-3.59,1.42-6.08,1.42-6.75,0-11.09-4.46-11.09-10.61Z" />
+            </g>
+            <circle id="lg-disc" class="lr" cx="168.43" cy="135.38" r="15.12" />
+            <circle id="lg-bite" cx="175.18" cy="125.15" r="8.35" />
+          </svg>
+          <div class="tagline">
+            <div id="tg1"><span>Des</span><span>visuels</span><span>qui</span><span>vous</span></div>
+            <div class="tg2">
+              <span id="tg-rev">révèlent</span>
+              <i id="tg-scan"></i>
+            </div>
+          </div>
+          <div id="url"><i id="url-rule"></i><span id="url-t">sophieotrage-graphiste.com</span></div>
+        </section>
+
+        <div id="grain"><div id="grain-tex"></div></div>
+      </div>
+
+      <audio id="soundtrack" src="assets/audio/soundtrack.wav" data-start="0" data-duration="15" data-track-index="1" data-volume="1"></audio>
+    </div>
+
+    <script>
+      (function () {
+        // --- deterministic helpers -------------------------------------------------
+        var seed = 20261012;
+        function rnd() {
+          seed = (seed * 16807) % 2147483647;
+          return (seed - 1) / 2147483646;
+        }
+        function $(s) {
+          return document.querySelector(s);
+        }
+        function $$(s) {
+          return Array.prototype.slice.call(document.querySelectorAll(s));
+        }
+        function splitChars(el, text, cls) {
+          for (var i = 0; i < text.length; i++) {
+            var s = document.createElement("span");
+            s.className = cls;
+            s.textContent = text[i] === " " ? " " : text[i];
+            el.appendChild(s);
+          }
+          return Array.prototype.slice.call(el.querySelectorAll("." + cls));
+        }
+        function posIn(el, anc) {
+          var x = 0,
+            y = 0,
+            n = el;
+          while (n && n !== anc) {
+            x += n.offsetLeft;
+            y += n.offsetTop;
+            n = n.offsetParent;
+          }
+          return { x: x, y: y };
+        }
+
+        // content split before measuring
+        var u1Chars = splitChars($("#u1-typed"), "générer : un nouvel univers", "tc");
+        var u3Chars = splitChars($("#u3-b"), "d’univers.", "uc");
+        var u4aChars = splitChars($("#u4-a"), "Je change", "ch");
+        var u4b = $("#u4-b");
+        var u4bHolder = document.createElement("span");
+        u4bHolder.style.display = "flex";
+        u4b.insertBefore(u4bHolder, u4b.firstChild);
+        var u4bChars = splitChars(u4bHolder, "d’univers", "ch");
+
+        var fonts = [
+          '600 122px "Inter Tight"',
+          '700 124px "Inter Tight"',
+          'italic 176px "Instrument Serif"',
+          '400 128px "Instrument Serif"',
+          '700 108px "Unbounded"',
+          '500 74px "Unbounded"',
+          '400 178px "Archivo Black"',
+          '700 112px "JetBrains Mono"',
+          '500 28px "JetBrains Mono"',
+        ];
+
+        Promise.all(
+          fonts.map(function (f) {
+            return document.fonts.load(f, "aàéèçd’Ü").catch(function () {});
+          }),
+        ).then(build);
+
+        function build() {
+          var tl = gsap.timeline({ paused: true });
+          function show(sel, t) {
+            tl.set(sel, { autoAlpha: 1 }, t);
+          }
+          function hide(sel, t) {
+            tl.set(sel, { autoAlpha: 0 }, t);
+          }
+
+          // ---- measurements (layout only, transform-free) ----
+          var s3Change = $("#s3-change");
+          var s3Swap = $("#s3-swap");
+          var dxChange = s3Change.offsetLeft - $("#s3-ne").offsetLeft;
+          var dxSwap = s3Swap.offsetLeft - $("#s3-pas").offsetLeft;
+          var u4 = $("#u4");
+          var dot = $("#u4-dot");
+          var dp = posIn(dot, u4);
+          var dcx = dp.x + dot.offsetWidth / 2;
+          var dcy = dp.y + dot.offsetHeight / 2;
+          var maxR =
+            Math.max(
+              Math.hypot(dcx, dcy),
+              Math.hypot(1080 - dcx, dcy),
+              Math.hypot(dcx, 1920 - dcy),
+              Math.hypot(1080 - dcx, 1920 - dcy),
+            ) + 40;
+
+          // ================= GRAIN (whole piece) =================
+          for (var g = 0; g < 15; g += 1 / 15) {
+            tl.set("#grain-tex", { x: Math.round((rnd() - 0.5) * 300), y: Math.round((rnd() - 0.5) * 300) }, g);
+          }
+
+          // ================= S1 · 0 → 4.0 =================
+          var s1Times = [0.125, 0.25, 0.5, 0.75, 1.0, 1.25, 1.375, 1.5, 2.0, 2.125, 2.5, 2.625, 2.875, 3.0];
+          var s1W = $$("#s1 .w");
+          s1W.forEach(function (w, i) {
+            var wi = w.querySelector(".wi");
+            var t = s1Times[i];
+            if (w.id === "s1-brief") {
+              tl.fromTo(
+                wi,
+                { scale: 1.6, opacity: 0, filter: "blur(16px)" },
+                { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" },
+                t,
+              );
+            } else {
+              tl.fromTo(wi, { yPercent: 112, rotate: 6 }, { yPercent: 0, rotate: 0, duration: 0.6, ease: "expo.out" }, t);
+            }
+          });
+          tl.fromTo("#s1-ell", { strokeDashoffset: 1, strokeDasharray: 1, opacity: 0 }, { strokeDashoffset: 0, opacity: 1, duration: 0.5, ease: "power2.inOut" }, 1.62);
+          tl.fromTo("#s1-dot", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(3.5)" }, 3.25);
+          tl.fromTo("#s1-q", { opacity: 0, rotate: -8, xPercent: 4 }, { opacity: 1, rotate: 3, xPercent: -2, duration: 3.6, ease: "sine.inOut" }, 0.05);
+          tl.fromTo(["#s1-m1", "#s1-m2"], { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.08 }, 0.1);
+          tl.fromTo("#s1-text", { scale: 1 }, { scale: 1.035, duration: 3.6, ease: "sine.inOut" }, 0.1);
+          // tape stop : tout tombe
+          var falls = $$("#s1 .fu");
+          falls.forEach(function (el, i) {
+            var k = falls.length - 1 - i;
+            tl.to(el, { y: 1100 + rnd() * 600, rotate: (rnd() - 0.5) * 70, duration: 0.36, ease: "back.in(1.6)" }, 3.6 + k * 0.007);
+          });
+          tl.to(["#s1-q", "#s1-m1", "#s1-m2"], { opacity: 0, duration: 0.25, ease: "power1.in" }, 3.68);
+          hide("#s1", 4.0);
+
+          // ================= S2 · 4.0 → 5.0 =================
+          show("#s2", 4.0);
+          var s2W = $$("#s2 .pw");
+          [4.066, 4.2, 4.333].forEach(function (t, i) {
+            tl.fromTo(s2W[i], { opacity: 0, scale: 0.82, y: 26 }, { opacity: 1, scale: 1, y: 0, duration: 0.24, ease: "back.out(2.4)" }, t);
+          });
+          tl.fromTo("#s2-dot", { y: -760 }, { y: 0, duration: 0.34, ease: "bounce.out" }, 4.44);
+          tl.fromTo("#s2-line", { rotate: -4 }, { rotate: 0, duration: 0.7, ease: "power2.out" }, 4.0);
+          tl.fromTo("#s2-marks", { scale: 1.04, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 4.0);
+          tl.to("#s2-line", { scale: 0.9, opacity: 0, duration: 0.13, ease: "power2.in" }, 4.87);
+          hide("#s2", 5.0);
+
+          // ================= S3 · 5.0 → 7.5 =================
+          show("#s3", 5.0);
+          var s3W = $$("#s3 .s3w");
+          [5.0, 5.125, 5.25, 5.5, 5.625, 5.75].forEach(function (t, i) {
+            tl.fromTo(
+              s3W[i],
+              { clipPath: "inset(-30% 100% -30% 0%)", x: -36 },
+              { clipPath: "inset(-30% 0% -30% 0%)", x: 0, duration: 0.38, ease: "power4.out" },
+              t,
+            );
+          });
+          tl.fromTo("#s3-dot", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(3)" }, 6.0);
+          tl.fromTo("#s3-strike-ne", { scaleX: 0 }, { scaleX: 1, duration: 0.17, ease: "power3.out" }, 6.25);
+          tl.fromTo("#s3-strike-pas", { scaleX: 0 }, { scaleX: 1, duration: 0.17, ease: "power3.out" }, 6.5);
+          // anticipation : « ne » et « pas » sont avalés
+          tl.to(["#s3-ne", "#s3-pas"], { scaleX: 0, opacity: 0, transformOrigin: "0% 50%", duration: 0.24, ease: "power3.in", stagger: 0.02 }, 6.72);
+          tl.to(s3Change, { x: -dxChange, duration: 0.26, ease: "power3.inOut" }, 6.74);
+          tl.to(s3Swap, { x: -dxSwap, duration: 0.26, ease: "power3.inOut" }, 6.76);
+          tl.fromTo("#s3-block", { scale: 1 }, { scale: 0.95, duration: 0.26, ease: "power2.in" }, 6.74);
+          // DROP 7.0 : métier → univers
+          tl.to("#s3-a", { yPercent: -90, opacity: 0, filter: "blur(10px)", duration: 0.12, ease: "power2.in" }, 6.9);
+          tl.fromTo("#s3-b", { yPercent: 60, opacity: 0, scale: 1.3 }, { yPercent: 0, opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 7.0);
+          tl.to("#s3-block", { scale: 1, duration: 0.5, ease: "back.out(2.5)" }, 7.0);
+          tl.fromTo("#flash", { opacity: 0.7 }, { opacity: 0, duration: 0.12, ease: "power1.out", immediateRender: false }, 7.0);
+          hide("#s3", 7.5);
+
+          // ================= U1 · IA design · 7.5 → 8.25 =================
+          show("#u1", 7.5);
+          tl.fromTo(
+            "#u1-mesh",
+            { "--x1": "18%", "--y1": "26%", "--x2": "82%", "--y2": "48%", "--x3": "36%", "--y3": "82%", rotate: 0 },
+            { "--x1": "38%", "--y1": "40%", "--x2": "64%", "--y2": "62%", "--x3": "56%", "--y3": "66%", rotate: 25, duration: 0.8, ease: "sine.inOut" },
+            7.5,
+          );
+          tl.fromTo("#u1-text", { filter: "blur(34px)", scale: 1.16, opacity: 0.15 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.42, ease: "expo.out" }, 7.5);
+          tl.fromTo("#u1-gr", { x: -26, opacity: 0.95 }, { x: 0, opacity: 0, duration: 0.22, ease: "power2.out" }, 7.5);
+          tl.fromTo("#u1-gc", { x: 26, opacity: 0.95 }, { x: 0, opacity: 0, duration: 0.22, ease: "power2.out" }, 7.5);
+          tl.fromTo("#u1-chip", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 7.53);
+          tl.fromTo(["#u1-sp1", "#u1-sp2", "#u1-sp3"], { scale: 0, rotate: -90 }, { scale: 1, rotate: 0, duration: 0.4, ease: "back.out(2.6)", stagger: 0.07 }, 7.6);
+          tl.fromTo("#u1-prompt", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "circ.out" }, 7.52);
+          tl.fromTo(u1Chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.016 }, 7.6);
+          tl.fromTo("#u1-bar", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power1.inOut" }, 7.6);
+          [7.7, 7.9, 8.1].forEach(function (t, i) {
+            tl.set("#u1-cur", { opacity: i % 2 ? 1 : 0.15 }, t);
+          });
+          hide("#u1", 8.25);
+
+          // ================= U2 · communication visuelle · 8.25 → 9.0 =================
+          show("#u2", 8.25);
+          tl.fromTo("#u2-circle", { scale: 0 }, { scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 8.25);
+          tl.to("#u2-circle", { x: -40, y: 30, duration: 0.3, ease: "sine.inOut" }, 8.7);
+          $$("#u2 .u2-l").forEach(function (el, i) {
+            tl.fromTo(el, { x: i % 2 ? 760 : -760 }, { x: 0, duration: 0.34, ease: "power4.out" }, 8.27 + i * 0.045);
+          });
+          tl.fromTo("#u2-num-in", { yPercent: 100 }, { yPercent: 0, duration: 0.3, ease: "power3.out" }, 8.3);
+          tl.fromTo("#u2-bar", { scaleX: 0 }, { scaleX: 1, duration: 0.32, ease: "expo.out" }, 8.38);
+          tl.fromTo("#u2-bar-t", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.25, ease: "power2.out" }, 8.48);
+          hide("#u2", 9.0);
+
+          // ================= U3 · direction artistique · 9.0 → 9.75 =================
+          show("#u3", 9.0);
+          tl.fromTo(".u3-frame .h", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 9.0);
+          tl.fromTo(".u3-frame .v", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "power2.out" }, 9.04);
+          tl.fromTo("#u3-in", { scale: 1.0 }, { scale: 1.045, duration: 0.75, ease: "sine.out" }, 9.0);
+          tl.fromTo("#u3-k", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 9.02);
+          tl.fromTo("#u3-title", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "circ.out" }, 9.04);
+          tl.fromTo("#u3-a", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 9.03);
+          tl.fromTo(u3Chars, { yPercent: 115 }, { yPercent: 0, duration: 0.5, ease: "expo.out", stagger: 0.028 }, 9.06);
+          tl.fromTo("#u3-sign", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "sine.out" }, 9.2);
+          hide("#u3", 9.75);
+
+          // ================= U4 · suivi de projet · 9.75 → 11.0 =================
+          show("#u4", 9.75);
+          tl.fromTo("#u4-chip", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power3.out" }, 9.77);
+          tl.fromTo("#u4-tick", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.18, ease: "power2.out" }, 10.05);
+          tl.fromTo(u4aChars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.014 }, 9.76);
+          tl.fromTo(u4bChars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.03 }, 9.88);
+          tl.fromTo("#u4-cur", { x: -330 }, { x: 0, duration: 0.27, ease: "none" }, 9.88);
+          tl.set("#u4-cur", { opacity: 0 }, 10.2);
+          tl.fromTo("#u4-dot", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3.2)" }, 10.2);
+          tl.fromTo(".g-lab", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out", stagger: 0.05 }, 9.8);
+          tl.fromTo(".g-bar", { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: "power3.out", stagger: 0.1 }, 9.86);
+          tl.fromTo(".g-check path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.12, ease: "power2.out", stagger: 0.1 }, 10.06);
+
+          // ================= IRIS · 10.5 → 11.0 =================
+          tl.set("#iris", { visibility: "visible" }, 10.5);
+          tl.fromTo(
+            "#iris",
+            { clipPath: "circle(13px at " + dcx + "px " + dcy + "px)" },
+            { clipPath: "circle(" + maxR + "px at " + dcx + "px " + dcy + "px)", duration: 0.45, ease: "power3.in" },
+            10.5,
+          );
+          tl.set("#iris", { visibility: "hidden" }, 11.0);
+          hide("#u4", 11.0);
+
+          // ================= LOGO · 11.0 → 15.0 =================
+          show("#logo", 11.0);
+          var gearO = "168.27 135.69";
+          var sgearO = "215.64 87.91";
+          tl.fromTo("#lg-disc", { attr: { r: 380 } }, { attr: { r: 15.12 }, duration: 0.5, ease: "power4.inOut" }, 11.0);
+          tl.fromTo("#lg-ring", { attr: { r: 16 }, opacity: 0.9 }, { attr: { r: 64 }, opacity: 0, duration: 0.6, ease: "power2.out" }, 11.5);
+          tl.fromTo("#lg-gear-g", { scale: 0.35, opacity: 0, svgOrigin: gearO }, { scale: 1, opacity: 1, svgOrigin: gearO, duration: 0.5, ease: "back.out(1.7)" }, 11.46);
+          tl.fromTo("#lg-gear", { rotation: -300, svgOrigin: gearO }, { rotation: 35, svgOrigin: gearO, duration: 3.54, ease: "power4.out" }, 11.46);
+          tl.fromTo("#lg-S", { y: 100 }, { y: 0, duration: 0.55, ease: "expo.out" }, 11.62);
+          tl.fromTo("#lg-sgear-g", { scale: 0, opacity: 0, svgOrigin: sgearO }, { scale: 1, opacity: 1, svgOrigin: sgearO, duration: 0.42, ease: "back.out(2.2)" }, 11.75);
+          tl.fromTo("#lg-sgear", { rotation: 320, svgOrigin: sgearO }, { rotation: -55, svgOrigin: sgearO, duration: 3.25, ease: "power4.out" }, 11.75);
+          tl.fromTo("#lg-bite", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, transformOrigin: "50% 50%", duration: 0.32, ease: "back.out(3)" }, 12.0);
+          $$("#lg-word .lg-l").forEach(function (p, i) {
+            tl.fromTo(p, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "back.out(2.6)" }, 12.0 + i * 0.125);
+          });
+          tl.fromTo("#lg-marks", { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 11.6);
+          // tagline
+          $$("#tg1 span").forEach(function (s, i) {
+            tl.fromTo(s, { opacity: 0, y: 18, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power2.out" }, 13.0 + i * 0.125);
+          });
+          var revW = $("#tg-rev").offsetWidth;
+          tl.fromTo("#tg-rev", { clipPath: "inset(-20% 100% -20% 0%)" }, { clipPath: "inset(-20% 0% -20% 0%)", duration: 0.55, ease: "power3.inOut" }, 13.5);
+          tl.fromTo("#tg-scan", { opacity: 0 }, { opacity: 1, duration: 0.04, ease: "none" }, 13.48);
+          tl.fromTo("#tg-scan", { x: 0 }, { x: revW - 4, duration: 0.55, ease: "power3.inOut" }, 13.5);
+          tl.to("#tg-scan", { opacity: 0, duration: 0.15, ease: "power1.out" }, 14.05);
+          tl.fromTo("#tg-rev", { backgroundPosition: "100% 0%" }, { backgroundPosition: "0% 0%", duration: 0.7, ease: "power1.inOut", immediateRender: false }, 14.15);
+          tl.fromTo("#url-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 14.2);
+          tl.fromTo("#url-t", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 14.25);
+
+          window.__timelines["main"] = tl;
+          tl.seek(0);
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+      })();
+    </script>
+  </body>
+</html>
