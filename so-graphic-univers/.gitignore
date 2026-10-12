@@ -1,0 +1,8 @@
+# instantanés de travail HyperFrames
+snapshots/
+tools/qa/logo-static/snapshots/
+# fichiers intermédiaires de rendu
+renders/*/
+renders/*.log
+.hyperframes/
+node_modules/

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>So Graphic — conclusion typographique</title>
+</head>
+<body>
+<template>
+<script src="../vendor/gsap/gsap.min.js"></script>
+<style>
+  @font-face { font-family:"Outfit"; font-weight:400; font-style:normal; src:url("../assets/fonts/outfit-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family:"Outfit"; font-weight:600; font-style:normal; src:url("../assets/fonts/outfit-latin-600-normal.woff2") format("woff2"); }
+
+  #so-conclusion-root {
+    position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+    background:#ffffff; color:#3a3a3a;
+    font-family:"Outfit", system-ui, sans-serif; font-weight:400;
+  }
+  /* Chaque phrase occupe tout le cadre, centrée ; une seule phrase visible à la fois. */
+  .c-card {
+    position:absolute; inset:0; box-sizing:border-box; padding:0 90px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+  }
+  #c-p1 { font-size:60px; line-height:1.32; letter-spacing:-0.005em; }
+  #c-p1-text { max-width:900px; margin:0; }
+  .c-group { display:inline-block; opacity:0; }
+
+  #c-p2 { font-size:96px; line-height:1.1; font-weight:600; color:#fc0017; letter-spacing:-0.015em; }
+  #c-p2-text { margin:0; opacity:0; }
+
+  #c-p3 { gap:22px; font-size:72px; line-height:1.2; letter-spacing:-0.01em; }
+  .c-line { display:block; margin:0; opacity:0; }
+  .c-red { color:#fc0017; font-weight:600; }
+</style>
+
+<div id="so-conclusion-root" data-composition-id="so-conclusion" data-start="0" data-duration="6.5" data-width="1080" data-height="1350">
+  <div id="c-p1" class="c-card">
+    <p id="c-p1-text"><span class="c-group">Vous ne savez pas encore</span> <span class="c-group">sur quel brief</span> <span class="c-group">vous pourriez avoir</span> <span class="c-group">besoin de moi.</span></p>
+  </div>
+  <div id="c-p2" class="c-card">
+    <p id="c-p2-text">Moi non plus.</p>
+  </div>
+  <div id="c-p3" class="c-card">
+    <p id="c-line1" class="c-line">Je ne change pas de métier.</p>
+    <p id="c-line2" class="c-line">Je change d'<span class="c-red">univers</span>.</p>
+  </div>
+</div>
+
+<script>
+(() => {
+  // ---------------------------------------------------------------------------
+  // CONSTANTES — temps locaux à la séquence (0,0 s = 0:20,5 dans le film)
+  // ---------------------------------------------------------------------------
+  const P1_GROUP_START   = 0.05;  // 1er groupe de mots
+  const P1_GROUP_STEP    = 0.20;  // décalage entre groupes
+  const P1_GROUP_DUR     = 0.35;  // fondu + glissement d'un groupe → phrase complète à 1,00 s
+  const P1_OUT           = 2.55;  // phrase 1 : début de sortie (lisible complète 1,00 → 2,55 s)
+  const P1_GONE          = 2.80;  // 0:23,3 — blanc pur
+  const P2_IN            = 3.20;  // 0:23,7 — « Moi non plus. » apparition sèche
+  const P2_OUT           = 4.38;  // sortie rapide…
+  const P2_GONE          = 4.50;  // …terminée à 0:25,0
+  const L1_IN            = 4.50;  // 0:25,0 — « Je ne change pas de métier. »
+  const L2_IN            = 5.00;  // 0:25,5 — « Je change d'univers. »
+  const FADE_IN          = 0.30;  // fondu court des deux dernières lignes
+  const P3_OUT           = 6.10;
+  const P3_GONE          = 6.30;  // 0:26,8 — tout a disparu
+  const SLIDE_PX         = 10;    // léger glissement vertical
+  const EASE_OUT         = "power3.out";
+  const EASE_IN          = "power2.in";
+
+  const tl = gsap.timeline({ paused: true });
+
+  // Phrase 1 — apparition par groupes de mots
+  document.querySelectorAll("#c-p1 .c-group").forEach((el, i) => {
+    tl.fromTo(el, { opacity: 0, y: SLIDE_PX }, { opacity: 1, y: 0, duration: P1_GROUP_DUR, ease: EASE_OUT },
+      P1_GROUP_START + i * P1_GROUP_STEP);
+  });
+  tl.to("#c-p1-text", { opacity: 0, y: -SLIDE_PX * 0.6, duration: P1_GONE - P1_OUT, ease: EASE_IN }, P1_OUT);
+
+  // Silence blanc 2,80 → 3,20, puis « Moi non plus. » sans glissement
+  tl.set("#c-p2-text", { opacity: 1 }, P2_IN);
+  tl.to("#c-p2-text", { opacity: 0, duration: P2_GONE - P2_OUT, ease: "none" }, P2_OUT);
+
+  // Deux dernières lignes
+  tl.fromTo("#c-line1", { opacity: 0, y: SLIDE_PX }, { opacity: 1, y: 0, duration: FADE_IN, ease: EASE_OUT }, L1_IN);
+  tl.fromTo("#c-line2", { opacity: 0, y: SLIDE_PX }, { opacity: 1, y: 0, duration: FADE_IN, ease: EASE_OUT }, L2_IN);
+  tl.to(["#c-line1", "#c-line2"], { opacity: 0, duration: P3_GONE - P3_OUT, ease: EASE_IN }, P3_OUT);
+
+  window.__timelines["so-conclusion"] = tl;
+})();
+</script>
+</template>
+</body>
+</html>

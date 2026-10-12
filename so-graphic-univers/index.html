@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <title>So Graphic — D'un univers à l'autre</title>
+    <!-- Bibliothèques embarquées localement (aucun appel réseau au rendu) -->
+    <script src="vendor/gsap/gsap.min.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/addons/"
+        }
+      }
+    </script>
+    <style>
+      @font-face {
+        font-family: "Outfit";
+        font-weight: 300;
+        font-style: normal;
+        src: url("assets/fonts/outfit-latin-300-normal.woff2") format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1350px;
+        overflow: hidden;
+        background: #ffffff;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #ffffff;
+      }
+      #u-world {
+        position: absolute;
+        inset: 0;
+        background: #15110e;
+      }
+      #u-canvas,
+      #u-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="30" data-fps="30" data-width="1080" data-height="1350">
+      <!-- Séquences 1 → 6 (0:00,0 – 0:20,5) : rendu Three.js + couche SVG plate -->
+      <div id="u-world" class="clip" data-start="0" data-duration="20.5" data-track-index="0">
+        <canvas id="u-canvas" width="1080" height="1350"></canvas>
+        <svg id="u-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" data-layout-allow-overflow></svg>
+      </div>
+
+      <!-- Conclusion typographique (0:20,5 – 0:27,0) -->
+      <div
+        id="so-conclusion"
+        data-composition-id="so-conclusion"
+        data-composition-src="compositions/conclusion.html"
+        data-start="20.5"
+        data-duration="6.5"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1350"
+      ></div>
+
+      <!-- Animation du logo (0:27,0 – 0:30,0) — prototype validé, à l'identique -->
+      <div
+        id="so-logo"
+        data-no-timeline
+        data-composition-id="so-logo"
+        data-composition-src="compositions/logo.html"
+        data-start="27"
+        data-duration="3"
+        data-track-index="2"
+        data-width="1080"
+        data-height="1350"
+      ></div>
+
+      <!-- Pistes audio de remplacement (muettes) : remplacer les fichiers, garder les noms -->
+      <audio id="musique" src="audio/musique.wav" data-start="0" data-duration="30" data-track-index="3"></audio>
+      <audio id="sound-design" src="audio/sound-design.wav" data-start="0" data-duration="30" data-track-index="4"></audio>
+    </div>
+
+    <script>
+      // Le moteur 3D se construit dans un module : le rendu attend qu'il soit prêt.
+      window.__hf = window.__hf || {};
+      window.__hf.buildReady = window.__hf.buildReady || {};
+      window.__hf.buildReady["so-univers"] = new Promise((resolve) => {
+        window.__soUniversReady = resolve;
+      });
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
