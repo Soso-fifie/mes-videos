@@ -2,7 +2,8 @@
 
 Vidéo motion design 15 s, 1080×1920 (9:16), 30 i/s, avec musique et bruitages.
 
-- **Vidéo finale** : `renders/so-graphic-univers.mp4`
+- **Vidéo finale** : `renders/so-graphic-univers.mp4` (master haute qualité, 35 Mo)
+- **Version partage** : `renders/so-graphic-univers-web.mp4` (15 Mo, idéale pour WhatsApp / e-mail / réseaux)
 - **Composition** (HTML + GSAP, HyperFrames) : `index.html`
 - **Bande-son** : `assets/audio/soundtrack.wav`, générée par `scripts/make_soundtrack.py`
 
